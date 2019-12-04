@@ -101,7 +101,7 @@ You may notice that a few of our states are without the `TransitionEvent` field.
 
 ### Resource
 
-Let's talk about the `Resource` field. This is where we tell the state machine what "function" to call when we enter that state, the "Resource" is also what's responsible for telling the state machine to transition, returning `{:next_event, :internal, :transition}` or whatever we've declared our transition event to be, or not, transition events can come from anywhere. Since under the hood we are using `:gen_statem` we can return whatever actions are supported by it, timeouts, postpone, hibernate etc. The [:gen_statem docs](http://erlang.org/doc/man/gen_statem.html#type-action) for actions can be very helpful.
+The `Resource` field is where we tell the state machine what "function" to call when we enter that state, the "Resource" is also what's responsible for telling the state machine to transition, returning `{:next_event, :internal, :transition}` or whatever we've declared our transition event to be, or not, transition events can come from anywhere. Since under the hood we are using `:gen_statem` we can return whatever actions are supported by it, timeouts, postpone, hibernate etc. The [:gen_statem docs](http://erlang.org/doc/man/gen_statem.html#type-action) for actions can be very helpful.
 
 ### Type
 
@@ -295,7 +295,7 @@ Generated states_language app
 
 ## Validation
 
-The library also includes JSON Schemas to validate that your state machines are valid StatesLanguage JSON data. 
+The library also includes JSON Schemas to validate that your state machines are valid States Language JSON data. 
 
 Validation is automatically done at compile time, and will `throw({:error, error_map})` if the data does not pass validation.
 
