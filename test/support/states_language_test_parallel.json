@@ -1,0 +1,44 @@
+{
+  "Comment": "StatesLanguage Test Client",
+  "StartAt": "Start",
+  "States": {
+    "Start": {
+      "Next": "SecondState",
+      "Parameters": {
+        "isState.$": "$.:state"
+      },
+      "Resource": "DoStart",
+      "Type": "Task"
+    },
+    "SecondState": {
+      "Next": "ThirdState",
+      "Type": "Parallel",
+      "ResourcePath": "$.parallel_result",
+      "Branches": [
+        "StatesLanguage.TestClientParallel.First",
+        "StatesLanguage.TestClientParallel.First"
+      ]
+    },
+    "ThirdState": {
+      "Next": "Finish",
+      "Parameters": {
+        "exists": true,
+        "thisIsDeep.$": "$.:another_level.:ok",
+        "stringsOk.$": "$.hmm"
+      },
+      "InputPath": "$.:level2",
+      "ResourcePath": "$.another_state",
+      "OutputPath": "$.another_state",
+      "Resource": "DoThird",
+      "Type": "Task"
+    },
+    "Finish": {
+      "End": true,
+      "Parameters": {
+        "done": true
+      },
+      "Resource": "DoFinish",
+      "Type": "Task"
+    }
+  }
+}

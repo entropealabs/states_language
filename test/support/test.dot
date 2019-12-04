@@ -1,0 +1,15 @@
+digraph my_graph {
+  node0 [label="AcceptInput", shape=box];
+  node1 [label="ShowError", shape=box];
+  node2 [label="NetworkError", shape=box];
+  node3 [label="InvalidLookupError", shape=box];
+  node4 [label="DoLookup", shape=box];
+  node5 [label="DispenseNosh", shape=box];
+  node0 -> node4 [label="%{event: :input_received}"];
+  node4 -> node5 [label=":success"];
+  node4 -> node3 [label=":invalid_lookup"];
+  node4 -> node2 [label=":network_error"];
+  node3 -> node1 [label=":transition"];
+  node2 -> node1 [label=":transition"];
+  node1 -> node0 [label=":transition"];
+}

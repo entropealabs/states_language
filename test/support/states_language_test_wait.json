@@ -1,0 +1,29 @@
+{
+  "Comment": "StatesLanguage Test Client",
+  "StartAt": "Start",
+  "States": {
+    "Start": {
+      "Next": "SecondState",
+      "Type": "Wait",
+      "TimestampPath": "$.:timestamp"
+    },
+    "SecondState": {
+      "Next": "ThirdState",
+      "Type": "Wait",
+      "SecondsPath": "$.:seconds"
+    },
+    "ThirdState": {
+      "Next": "Finish",
+      "Type": "Wait",
+      "Seconds": 0.2131
+    },
+    "Finish": {
+      "End": true,
+      "Parameters": {
+        "done": true
+      },
+      "Resource": "DoFinish",
+      "Type": "Task"
+    }
+  }
+}

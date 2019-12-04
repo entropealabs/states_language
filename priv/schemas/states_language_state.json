@@ -1,0 +1,324 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cityba.se/schemas/states_language_state.json",
+  "title": "StatesLanguage State",
+  "description": "Schema for an individual State within StatesLanguage",
+  "definitions": {
+    "state": {
+      "$id": "#state",
+      "anyOf": [
+        {
+          "$ref": "#/definitions/choice",
+          "title": "Choice"
+        },
+        {
+          "$ref": "#/definitions/task",
+          "title": "Task"
+        },
+        {
+          "$ref": "#/definitions/map",
+          "title": "Map"
+        },
+        {
+          "$ref": "#/definitions/parallel",
+          "title": "Parallel"
+        },
+        {
+          "$ref": "#/definitions/wait",
+          "title": "Wait"
+        }
+      ]
+    },
+    "json_path": {
+      "type": "string",
+      "pattern": "^[$]"
+    },
+    "module_name": {
+      "type": "string",
+      "pattern": "^[A-Z][a-zA-Z.0-9]*$"
+    },
+    "state_name": {
+      "$id": "#state_name",
+      "type": "string",
+      "pattern": "^[A-Z][a-zA-Z]*$"
+    },
+    "choice_option": {
+      "$id": "#choice_option",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "StringEquals": {
+          "type": "string"
+        },
+        "Next": {
+          "$ref": "#/definitions/state_name"
+        }
+      }
+    },
+    "error": {
+      "$id": "#error",
+      "type": "object",
+      "properties": {
+        "ErrorEquals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Next": {
+          "$ref": "#/definitions/state_name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "task": {
+      "$id": "#task",
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "const": "Task",
+          "default": "Task"
+        },
+        "Resource": {
+          "type": "string"
+        },
+        "Next": {
+          "$ref": "#/definitions/state_name"
+        },
+        "End": {
+          "type": "boolean"
+        },
+        "InputPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "ResourcePath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "OutputPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "TransitionEvent": {
+          "type": "string"
+        },
+        "Parameters": {
+          "type": "object"
+        },
+        "Catch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/error"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "choice": {
+      "$id": "#choice",
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "const": "Choice",
+          "default": "Choice"
+        },
+        "Resource": {
+          "type": "string"
+        },
+        "Choices": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/choice_option"
+          }
+        },
+        "InputPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "ResourcePath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "OutputPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "TransitionEvent": {
+          "type": "string"
+        },
+        "Parameters": {
+          "type": "object"
+        },
+        "Default": {
+          "$ref": "#/definitions/state_name"
+        }
+      },
+      "additionalProperties": false
+    },
+    "wait": {
+      "$id": "#wait",
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "const": "Wait",
+          "default": "Wait"
+        },
+        "Seconds": {
+          "type": "number"
+        },
+        "SecondsPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "Timestamp": {
+          "type": "string"
+        },
+        "TimestampPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "Next": {
+          "$ref": "#/definitions/state_name"
+        },
+        "End": {
+          "type": "boolean"
+        },
+        "InputPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "ResourcePath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "OutputPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "Parameters": {
+          "type": "object"
+        },
+        "Catch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/error"
+          }
+        }
+      },
+      "oneOf": [
+        {
+          "required": [
+            "Seconds"
+          ]
+        },
+        {
+          "required": [
+            "SecondsPath"
+          ]
+        },
+        {
+          "required": [
+            "Timestamp"
+          ]
+        },
+        {
+          "required": [
+            "TimestampPath"
+          ]
+        }
+      ],
+      "additionalProperties": false
+    },
+    "map": {
+      "$id": "#map",
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "const": "Map",
+          "default": "Map"
+        },
+        "Resource": {
+          "type": "string"
+        },
+        "Next": {
+          "$ref": "#/definitions/state_name"
+        },
+        "End": {
+          "type": "boolean"
+        },
+        "Iterator": {
+          "$ref": "#/definitions/module_name"
+        },
+        "InputPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "ItemsPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "ResourcePath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "OutputPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "TransitionEvent": {
+          "type": "string"
+        },
+        "Parameters": {
+          "type": "object"
+        },
+        "Catch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/error"
+          }
+        }
+
+      },
+      "additionalProperties": false
+    },
+    "parallel": {
+      "$id": "#parallel",
+      "type": "object",
+      "properties": {
+        "Type": {
+          "type": "string",
+          "const": "Parallel",
+          "default": "Parallel"
+        },
+        "Resource": {
+          "type": "string"
+        },
+        "Next": {
+          "$ref": "#/definitions/state_name"
+        },
+        "End": {
+          "type": "boolean"
+        },
+        "Branches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/module_name"
+          }
+        },
+        "InputPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "ResourcePath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "OutputPath": {
+          "$ref": "#/definitions/json_path"
+        },
+        "TransitionEvent": {
+          "type": "string"
+        },
+        "Parameters": {
+          "type": "object"
+        },
+        "Catch": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/error"
+          }
+        }
+
+      },
+      "additionalProperties": false
+    }
+  }
+}

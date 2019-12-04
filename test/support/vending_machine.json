@@ -1,0 +1,52 @@
+{
+  "Comment": "Dispense with the nosh",
+  "StartAt": "AcceptInput",
+  "States": {
+    "AcceptInput": {
+      "Type": "Task",
+      "Resource": "StartKeyPad",
+      "TransitionEvent": "%{event: :input_received}",
+      "Next": "DoLookup"
+    },
+    "DoLookup": {
+      "Type": "Task",
+      "Resource": "DoLookup",
+      "TransitionEvent": ":success",
+      "InputPath": "$.:keypad",
+      "Parameters": {
+        "keyed_input.$": "$.:input"
+      },
+      "Next": "DispenseNosh",
+      "Catch": [
+        {
+          "ErrorEquals": [":invalid_lookup"],
+          "Next": "InvalidLookupError"
+        },
+        {
+          "ErrorEquals": [":network_error"],
+          "Next": "NetworkError"
+        }
+      ]
+    },
+    "NetworkError": {
+      "Type": "Task",
+      "Resource": "SetError:Network Error. Please try again",
+      "Next": "ShowError"
+    },
+    "InvalidLookupError": {
+      "Type": "Task",
+      "Resource": "SetError:That was not a correct nosh code, please try again",
+      "Next": "ShowError"
+    },
+    "ShowError": {
+      "Type": "Task",
+      "Resource": "DisplayText:error",
+			"Next": "AcceptInput"
+    },
+    "DispenseNosh": {
+      "Type": "Task",
+      "Resource": "DispenseNosh",
+      "End": true
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "Comment": "Map State Machine",
+  "StartAt": "MapFirst",
+  "States": {
+    "MapFirst":{
+      "Type": "Task",
+      "Resource": "MapResource",
+      "End": true
+    }
+  }
+}

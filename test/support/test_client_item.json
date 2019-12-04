@@ -1,0 +1,17 @@
+{
+  "Comment": "Mutate TestClient Items",
+  "StartAt": "Mutate",
+  "States": {
+    "Mutate": {
+      "Type": "Task",
+      "Resource": "DoMutate",
+      "Parameters": {
+        "desc.$": "$.description",
+        "amnt.$": "$.amount",
+        "service_fee.$": "$.service",
+        "title.$": "$.name"
+      },
+      "End": true
+    }
+  }
+}

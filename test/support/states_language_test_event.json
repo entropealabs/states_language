@@ -1,0 +1,46 @@
+{
+  "Comment": "StatesLanguage Test Client",
+  "StartAt": "Start",
+  "States": {
+    "Start": {
+      "TransitionEvent": "{:success, true}",
+      "Next": "SecondState",
+      "Parameters": {
+        "isState.$": "$.:state"
+      },
+      "Resource": "DoStart",
+      "Type": "Task"
+    },
+    "SecondState": {
+      "TransitionEvent": "{:second_success, true}",
+      "Next": "ThirdState",
+      "Resource": "DoSecond",
+      "Parameters": {
+        "isState.$": "$.:state",
+        "test": "ok"
+      },
+      "Type": "Task"
+    },
+    "ThirdState": {
+      "Next": "Finish",
+      "Parameters": {
+        "exists": true,
+        "thisIsDeep.$": "$.:another_level.:ok",
+        "stringsOk.$": "$.hmm"
+      },
+      "InputPath": "$.:level2",
+      "ResourcePath": "$.another_state",
+      "OutputPath": "$.another_state",
+      "Resource": "DoThird",
+      "Type": "Task"
+    },
+    "Finish": {
+      "End": true,
+      "Parameters": {
+        "done": true
+      },
+      "Resource": "DoFinish",
+      "Type": "Task"
+    }
+  }
+}

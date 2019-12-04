@@ -1,0 +1,11 @@
+{
+  "Comment": "Parallel State Machine",
+  "StartAt": "ParallelFirst",
+  "States": {
+    "ParallelFirst":{
+      "Type": "Task",
+      "Resource": "ParallelResource",
+      "End": true
+    }
+  }
+}

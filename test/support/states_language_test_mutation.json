@@ -1,0 +1,19 @@
+{
+  "Comment": "Test map mutations",
+  "StartAt": "MapMutation",
+  "States": {
+    "MapMutation": {
+      "Type": "Map",
+      "InputPath": "$.detail",
+      "ItemsPath": "$.items",
+      "Iterator": "StatesLanguage.TestClientItem",
+      "ResourcePath": "$.line_items",
+      "Next": "Output"
+    },
+    "Output": {
+      "Type": "Task",
+      "Resource": "DoOutput",
+      "End": true
+    }
+  }
+}

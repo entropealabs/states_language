@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cityba.se/schemas/states_language.json",
+  "title": "States Language",
+  "description": "States Language JSON files to be compiled to Erlang gen_statem processes",
+  "type": "object",
+  "properties": {
+    "Comment": {"type": "string"},
+    "StartAt": {"type": "string"},
+    "States": {
+      "type": "object",
+      "patternProperties": {"^[A-Z][a-zA-Z]*$": {"$ref": "states_language_state.json#/definitions/state"}},
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
