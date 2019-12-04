@@ -13,6 +13,7 @@ defmodule StatesLanguage.TestClientMutation do
 
   @impl true
   def handle_termination(_, _, %StatesLanguage{} = sl) do
+    debug("Terminating: #{inspect(sl.data)}")
     items = get_in(sl.data, ["line_items"])
     send(sl.data.test, {:line_items, items})
     :ok
