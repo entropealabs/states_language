@@ -31,6 +31,6 @@ defmodule JSONMutationTest do
   end
 
   test "map results" do
-    assert_receive {:line_items, items}
+    assert_receive {:line_items, items}, 1000
   end
 end

@@ -34,7 +34,7 @@ Let's start with a diagram of our system.
 
 There's only a few states to deal with here, so let's get started.
 
-Let's start with the States Language JSON description
+Let's start by creating the States Language JSON description, name it `vending_machine.json`
 
 ```json
 {
@@ -145,7 +145,9 @@ In practice we don't generally use the path support often and instead just pass 
 
 ## State Machine Module
 
-Let's now take a look at our state machine implementation, the code that actually does the work for us.
+Now let's create our module implementation, name it `vending_machine.ex`.
+
+**Note** If you are following along by creating your own mix project, you'll need to update the `@external_resource` and `data` variables on lines 2 and 3, to point to the JSON file you created above.
 
 ```elixir
 defmodule VendingMachine do
@@ -259,7 +261,18 @@ defmodule VendingMachine do
 end
 ```
 
-You can run this code by running `$ MIX_ENV=test mix test test/states_language_vending_machine_test.exs --force` from your CLI.
+
+If you've checked out the StatesLanguage repo, you can run this code by running `$ MIX_ENV=test mix test test/states_language_vending_machine_test.exs --force` from your CLI.
+
+If you are building your own project you can run it like this.
+
+```bash
+$ iex -S mix
+iex(1)> VendingMachine.start_link(%VendingMachine.Data{test: self()})
+iex(2)> flush()
+:finished
+:ok
+```
 
 Which should result in output that looks like this.
 

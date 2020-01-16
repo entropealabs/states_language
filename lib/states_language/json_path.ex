@@ -37,18 +37,25 @@ defmodule StatesLanguage.JSONPath do
   end
 
   def put_path(input, <<"$.", path::binary>>, result) when is_map(input) do
-    create_path(input, String.split(path, "."), result)
+    path =
+      path
+      |> String.split(".")
+      |> Enum.reverse()
+      |> Enum.reduce([], fn key, acc ->
+        create_path(key, acc)
+      end)
+
+    put_in(input, Enum.map(path, &Access.key(&1, %{})), result)
   end
 
-  defp create_path(input, [h | []], result) do
-    Map.put(input, h, result)
+  defp create_path(<<":", key::binary>>, acc) do
+    key = String.to_existing_atom(key)
+    create_path(key, acc)
   end
 
-  defp create_path(input, [h | tail], result) do
-    create_path(Map.put(input, h, %{}), tail, result)
+  defp create_path(key, acc) do
+    [key | acc]
   end
-
-  defp create_path(input, [], _result), do: input
 
   def generate_parameters(input, params) when map_size(params) == 0, do: input
 
@@ -56,8 +63,18 @@ defmodule StatesLanguage.JSONPath do
     Enum.reduce(params, %{}, fn {k, v}, acc -> parse_parameters({k, v}, input, acc) end)
   end
 
-  defp parse_parameters({_k, v}, input, _acc) when is_map(v) do
-    generate_parameters(v, input)
+  defp parse_parameters({k, v}, input, acc) when is_map(v) do
+    Map.put(acc, k, generate_parameters(input, v))
+  end
+
+  defp parse_parameters({k, v}, input, acc) when is_list(v) do
+    Map.put(
+      acc,
+      k,
+      Enum.map(v, fn i ->
+        generate_parameters(input, i)
+      end)
+    )
   end
 
   defp parse_parameters({k, <<"$", _path::binary>> = v}, input, acc) do
