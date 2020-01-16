@@ -10,7 +10,7 @@ defmodule StatesLanguage.TestClientEvent do
 
   @impl true
   def handle_resource("DoStart", _, "Start", data) do
-    {:ok, data, [{:next_event, :internal, {:success, true}}]}
+    {:ok, data, [{:next_event, :internal, "event"}]}
   end
 
   @impl true

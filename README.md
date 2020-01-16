@@ -99,6 +99,8 @@ We can see each state from our diagram represented, and a few mentions of "Trans
 
 You may notice that a few of our states are without the `TransitionEvent` field. The library will provide a default transition event of `:transition`. We'll see more about that when we go over the Elixir code that implements our machine. It's worth noting that `TransitionEvent` isn't in the [States Language spec](https://states-language.net/spec.html), but I've found it quite a powerful addition. For example, this allows external processes to send events to the state machine, without us having to write listener/translation code for every possible event. We just say, when you receive this event, transition to the next state.
 
+**Note** The mix of JSON decoding and `Code.eval_string` makes it a bit tricky to use just a plain string as an event, however it is possible. In your JSON file, you can use a sigil and escaped string like so "TransitionEvent": `"\"~s(my_event)\""`.
+
 ### Resource
 
 The `Resource` field is where we tell the state machine what "function" to call when we enter that state, the "Resource" is also what's responsible for telling the state machine to transition, returning `{:next_event, :internal, :transition}` or whatever we've declared our transition event to be, or not, transition events can come from anywhere. Since under the hood we are using `:gen_statem` we can return whatever actions are supported by it, timeouts, postpone, hibernate etc. The [:gen_statem docs](http://erlang.org/doc/man/gen_statem.html#type-action) for actions can be very helpful.

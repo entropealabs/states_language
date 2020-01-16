@@ -3,7 +3,7 @@
   "StartAt": "Start",
   "States": {
     "Start": {
-      "TransitionEvent": "{:success, true}",
+      "TransitionEvent": "\"~s(event)\"",
       "Next": "SecondState",
       "Parameters": {
         "isState.$": "$.:state"
