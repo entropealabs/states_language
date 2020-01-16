@@ -99,7 +99,9 @@ We can see each state from our diagram represented, and a few mentions of "Trans
 
 You may notice that a few of our states are without the `TransitionEvent` field. The library will provide a default transition event of `:transition`. We'll see more about that when we go over the Elixir code that implements our machine. It's worth noting that `TransitionEvent` isn't in the [States Language spec](https://states-language.net/spec.html), but I've found it quite a powerful addition. For example, this allows external processes to send events to the state machine, without us having to write listener/translation code for every possible event. We just say, when you receive this event, transition to the next state.
 
-**Note** The mix of JSON decoding and `Code.eval_string` makes it a bit tricky to use just a plain string as an event, however it is possible. In your JSON file, you can use a sigil and escaped string like so "TransitionEvent": `"\"~s(my_event)\""`.
+**Note** 
+
+The mix of JSON decoding and `Code.eval_string` makes it a bit tricky to use just a plain string as an event, however it is possible. In your JSON file, you can use a sigil and escaped string like so `"TransitionEvent": "\"~s(my_event)\""`.
 
 ### Resource
 
