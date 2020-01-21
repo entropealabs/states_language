@@ -34,7 +34,13 @@ defmodule StatesLanguage.Serializer.Dot do
     Enum.reduce(edges, output, fn %Edge{} = edge, acc ->
       source = get_node_index_from_name(edge.source, nodes)
       target = get_node_index_from_name(edge.target, nodes)
-      acc <> "  node#{source} -> node#{target} [label=\"#{Macro.to_string(edge.event)}\"];\n"
+
+      label =
+        edge.event
+        |> Macro.to_string()
+        |> String.replace("\"", "\\\"")
+
+      acc <> ~s(  node#{source} -> node#{target} [label="#{label}"];\n)
     end)
   end
 
