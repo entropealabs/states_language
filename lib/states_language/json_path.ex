@@ -22,7 +22,7 @@ defmodule StatesLanguage.JSONPath do
 
   def run_json_path("$", data), do: data
 
-  def run_json_path(path, %{__struct__: _} = data) do
+  def run_json_path(<<"$", _::binary()>> = path, %{__struct__: _} = data) do
     run_json_path(path, Map.from_struct(data))
   end
 
@@ -34,7 +34,7 @@ defmodule StatesLanguage.JSONPath do
 
   def put_path(_input, "$", result), do: result
 
-  def put_path(%{__struct__: _} = input, path, result) do
+  def put_path(%{__struct__: _} = input, <<"$", _::binary()>> = path, result) do
     put_path(Map.from_struct(input), path, result)
   end
 
