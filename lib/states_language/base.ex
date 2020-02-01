@@ -12,9 +12,12 @@ defmodule StatesLanguage.Base do
       def child_spec(opts) do
         %{
           id: __MODULE__,
-          start: {__MODULE__, :start_link, opts}
+          start: {__MODULE__, :start_link, opts},
+          restart: :transient
         }
       end
+
+      defoverridable(child_spec: 1)
 
       @impl true
       def callback_mode, do: [:handle_event_function, :state_enter]
