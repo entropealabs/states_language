@@ -22,19 +22,19 @@ defmodule StatesLanguage.Base do
       @impl true
       def callback_mode, do: [:handle_event_function, :state_enter]
 
-      def start_link(data) do
+      def start_link(data, opts \\ []) do
         :gen_statem.start_link(
           __MODULE__,
           data,
-          []
+          opts
         )
       end
 
-      def start(data) do
+      def start(data, opts \\ []) do
         :gen_statem.start(
           __MODULE__,
           data,
-          []
+          opts
         )
       end
 
