@@ -50,6 +50,8 @@ defmodule StatesLanguage.JSONPath do
     put_in(input, Enum.map(path, &Access.key(&1, %{})), result)
   end
 
+  def put_path(_, _, result), do: result
+
   defp create_path(<<":", key::binary>>, acc) do
     key = String.to_existing_atom(key)
     create_path(key, acc)
