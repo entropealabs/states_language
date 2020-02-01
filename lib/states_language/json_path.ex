@@ -30,6 +30,8 @@ defmodule StatesLanguage.JSONPath do
     Elixpath.get!(data, rest)
   end
 
+  def run_json_path(_p, data), do: data
+
   def put_path(_input, "$", result), do: result
 
   def put_path(%{__struct__: _} = input, path, result) do
