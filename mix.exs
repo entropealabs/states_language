@@ -4,7 +4,7 @@ defmodule StatesLanguage.Mixfile do
   def project do
     [
       app: :states_language,
-      version: "0.2.6",
+      version: "0.2.7",
       elixir: "~> 1.5",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
