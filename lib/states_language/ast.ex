@@ -41,6 +41,17 @@ defmodule StatesLanguage.AST do
     enter ++ transition ++ resource
   end
 
+  @spec external_resource(binary() | nil) :: [any()] | []
+  def external_resource(nil), do: []
+
+  def external_resource(path) when is_binary(path) do
+    [
+      quote location: :keep do
+        @external_resource unquote(path)
+      end
+    ]
+  end
+
   @spec start(Graph.t()) :: [any()]
   def start(%Graph{start: start}) do
     [

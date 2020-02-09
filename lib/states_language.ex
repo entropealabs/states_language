@@ -255,13 +255,15 @@ defmodule StatesLanguage do
     data
     |> File.read!()
     |> Jason.decode!()
-    |> do_start()
+    |> do_start(data)
   end
 
   @spec do_start(map()) :: [any()]
-  defp do_start(data) when is_map(data) do
+  defp do_start(data, path \\ nil) when is_map(data) do
     %Graph{} = graph = Graph.serialize(data)
-    AST.default(graph) ++ AST.start(graph) ++ AST.graph(graph) ++ AST.catch_all()
+
+    AST.external_resource(path) ++
+      AST.default(graph) ++ AST.start(graph) ++ AST.graph(graph) ++ AST.catch_all()
   end
 
   @doc """
