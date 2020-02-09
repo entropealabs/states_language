@@ -153,7 +153,6 @@ Now let's create our module implementation, name it `vending_machine.ex`.
 
 ```elixir
 defmodule VendingMachine do
-  @external_resource "test/support/vending_machine.json"
   use StatesLanguage, data: "test/support/vending_machine.json"
 
   defmodule Data do
@@ -308,6 +307,33 @@ Generated states_language app
 14:41:21.863 [info]  Dispensing one "Snickers"
 
 14:41:21.863 [debug] Elixir.VendingMachine - Terminating in state DispenseNosh :normal
+```
+
+## Persisting process state
+
+It's also possible to override the "Start" state and perhaps pass in a deserialized data object. This would allow you to persist the StatesLanguage process to storage and restart the process where you left off.
+
+For the vending machine example you could pass in your data and a `start` parameter to `start_link` or `start`
+
+```bash
+$ iex -S mix
+iex(1)> data = %Data{test: self(), keypad: %{input: "a123"}, lookup: %{result: %{candy: "Snickers"}}}
+iex(2)> VendingMachine.start_link(data, start: "DispenseNosh")
+iex(3)> flush()
+:finished
+:ok
+```
+
+And your output would look something like this
+
+```
+09:19:04.239 [debug] Elixir.VendingMachine - Init: Data - %VendingMachine.Data{error: "", keypad: %{input: "a123"}, lookup: %{result: %{candy: "Snickers"}}, test: #PID<0.346.0>}
+
+09:19:04.239 [warn]  Unknown enter event from "DispenseNosh" to "DispenseNosh"
+
+09:19:04.239 [info]  Dispensing one "Snickers"
+
+09:19:04.239 [debug] Elixir.VendingMachine - Terminating in state DispenseNosh :normal
 ```
 
 ## Validation
