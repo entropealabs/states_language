@@ -5,10 +5,11 @@ defmodule StatesLanguage.TestClientMap.First do
   require Logger
 
   @impl true
-  def handle_resource("MapResource", item, "MapFirst", %StatesLanguage{data: _data} = sl) do
+  def handle_resource("MapResource", item, "MapFirst", %StatesLanguage{data: data} = sl) do
     item = %{item | data: item.data + 10}
     send(sl._parent_data.test, {:map, item.data})
-    {:ok, %StatesLanguage{sl | data: item}, []}
+    sl = %StatesLanguage{sl | data: item}
+    {:ok, sl, [{:next_event, :internal, :transition}]}
   end
 
   @impl true
@@ -24,8 +25,13 @@ defmodule StatesLanguage.TestClientMap.First do
   end
 
   @impl true
-  def handle_termination(_, _, %StatesLanguage{data: data} = sl) do
-    debug("Sending Parent Result #{inspect(data)} from #{inspect(self())}")
+  def handle_termination(reason, state, %StatesLanguage{data: data} = sl) do
+    debug(
+      "Sending Parent Result in #{state} with reason #{reason} #{inspect(sl)} from #{
+        inspect(self())
+      }"
+    )
+
     send(sl._parent, {:task_processed, data, self()})
     :ok
   end
