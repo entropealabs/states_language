@@ -29,11 +29,12 @@ defmodule StatesLanguage.AST.Await do
              _ -> false
            end) do
           res = Enum.map(tasks, fn {_p, res} -> res end)
+          Logger.info("All tasks complete: #{inspect(res)}")
           data = put_result(res, unquote(resource_path), unquote(output_path), data)
 
           case AST.do_stop?(unquote(is_end)) do
             true ->
-              :stop
+              {:stop, :end, %StatesLanguage{sl | data: data}}
 
             false ->
               {:keep_state, %StatesLanguage{sl | data: data, _tasks: []},
