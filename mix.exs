@@ -11,7 +11,7 @@ defmodule StatesLanguage.Mixfile do
       description: description(),
       package: package(),
       name: "StatesLanguage",
-      source_url: "https://github.com/citybaseinc/states_language",
+      source_url: "https://github.com/entropealabs/states_language",
       elixirc_paths: elixirc_paths(Mix.env()),
       test_coverage: [tool: ExCoveralls],
       dialyzer: [plt_add_apps: [:mix]],
@@ -59,7 +59,7 @@ defmodule StatesLanguage.Mixfile do
     [
       files: ~w(lib priv mix.exs README*),
       licenses: ["MIT"],
-      links: %{"Github" => "https://github.com/citybaseinc/states_language"}
+      links: %{"Github" => "https://github.com/entropealabs/states_language"}
     ]
   end
 end
