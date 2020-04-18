@@ -82,7 +82,7 @@ defmodule StatesLanguage.Base do
 
       @impl true
       def init({{parent, data}, override_start}) do
-        debug("Nested Init: Parent - #{inspect(parent)} Data - #{inspect(data)}")
+        Logger.debug("Nested Init: Parent - #{inspect(parent)} Data - #{inspect(data)}")
 
         {parent_data, child_data} =
           case data do
@@ -96,7 +96,7 @@ defmodule StatesLanguage.Base do
 
       @impl true
       def init({data, override_start}) do
-        debug("Init: Data - #{inspect(data)}")
+        Logger.debug("Init: Data - #{inspect(data)}")
         start = get_start_state(unquote(start), override_start)
         do_init(start, nil, nil, data)
       end
@@ -119,7 +119,7 @@ defmodule StatesLanguage.Base do
 
       @impl true
       def terminate(reason, state, data) do
-        debug("Terminating in state #{state} #{inspect(reason)}")
+        Logger.debug("Terminating in state #{state} #{inspect(reason)}")
 
         :telemetry.execute([:states_language, :terminating], %{}, %{
           source: state,

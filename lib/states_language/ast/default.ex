@@ -68,7 +68,7 @@ defmodule StatesLanguage.AST.Default do
       def handle_event(:info, event, state, %StatesLanguage{} = data) do
         {:ok, data, actions} = handle_info(event, state, data)
 
-        debug(
+        Logger.debug(
           "Handled info event: #{inspect(event)} in state #{state} with data #{inspect(data)}"
         )
 
@@ -79,7 +79,7 @@ defmodule StatesLanguage.AST.Default do
       def handle_event({:call, from}, event, state, %StatesLanguage{} = data) do
         {:ok, data, actions} = handle_call(event, from, state, data)
 
-        debug(
+        Logger.debug(
           "Handled call event: #{inspect(event)} in state #{state} with data #{inspect(data)}"
         )
 
@@ -90,7 +90,7 @@ defmodule StatesLanguage.AST.Default do
       def handle_event(:cast, event, state, %StatesLanguage{} = data) do
         {:ok, data, actions} = handle_cast(event, state, data)
 
-        debug(
+        Logger.debug(
           "Handled cast event: #{inspect(event)} in state #{state} with data #{inspect(data)}"
         )
 
@@ -101,7 +101,7 @@ defmodule StatesLanguage.AST.Default do
       def handle_event({:timeout, :generic}, event, state, %StatesLanguage{} = data) do
         {:ok, data, actions} = handle_generic_timeout(event, state, data)
 
-        debug(
+        Logger.debug(
           "Handled generic timeout event: #{inspect(event)} in state #{state} with data #{
             inspect(data)
           }"
@@ -114,7 +114,7 @@ defmodule StatesLanguage.AST.Default do
       def handle_event(:state_timeout, event, state, %StatesLanguage{} = data) do
         {:ok, data, actions} = handle_state_timeout(event, state, data)
 
-        debug(
+        Logger.debug(
           "Handled state timeout event: #{inspect(event)} in state #{state} with data #{
             inspect(data)
           }"
@@ -127,7 +127,7 @@ defmodule StatesLanguage.AST.Default do
       def handle_event(:timeout, event, state, %StatesLanguage{} = data) do
         {:ok, data, actions} = handle_event_timeout(event, state, data)
 
-        debug(
+        Logger.debug(
           "Handled event timeout event: #{inspect(event)} in state #{state} with data #{
             inspect(data)
           }"

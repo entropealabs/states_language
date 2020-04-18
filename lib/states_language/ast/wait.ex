@@ -27,12 +27,12 @@ defmodule StatesLanguage.AST.Wait do
             unquote(state_name) = state,
             %StatesLanguage{data: data} = sl
           ) do
-        debug("Handling Wait resource for #{state}")
+        Logger.debug("Handling Wait resource for #{state}")
         # credo:disable-for-lines:22
         dur =
           case AST.wait_duration(unquote(duration)) do
             {:path, path} ->
-              debug("getting wait time from path #{path}")
+              Logger.debug("getting wait time from path #{path}")
               val = run_json_path(path, data)
 
               case val do
@@ -40,11 +40,11 @@ defmodule StatesLanguage.AST.Wait do
                   get_timestamp_diff(future)
 
                 seconds when is_number(seconds) ->
-                  debug("Path value was seconds")
+                  Logger.debug("Path value was seconds")
                   trunc(seconds * 1000)
 
                 datetime when is_binary(datetime) ->
-                  debug("path value was timestamp")
+                  Logger.debug("path value was timestamp")
                   {:ok, future, _off} = DateTime.from_iso8601(datetime)
                   get_timestamp_diff(future)
               end
@@ -53,7 +53,7 @@ defmodule StatesLanguage.AST.Wait do
               milliseconds
           end
 
-        debug("Waiting #{dur}ms in state #{state}")
+        Logger.debug("Waiting #{dur}ms in state #{state}")
         {:keep_state_and_data, [{:state_timeout, dur, dur}]}
       end
 
@@ -71,7 +71,10 @@ defmodule StatesLanguage.AST.Wait do
           false ->
             actions = [{:next_event, :internal, :transition}]
 
-            debug("Moving from #{state} to #{unquote(next_state)} after waiting #{duration}ms")
+            Logger.debug(
+              "Moving from #{state} to #{unquote(next_state)} after waiting #{duration}ms"
+            )
+
             {:keep_state_and_data, actions}
         end
       end

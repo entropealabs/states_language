@@ -12,7 +12,7 @@ defmodule StatesLanguage.AST.Transition do
     quote location: :keep do
       @impl true
       def handle_event(:info, unquote(event) = event, unquote(source) = state, data) do
-        debug(
+        Logger.debug(
           "got info transition event #{inspect(event)} in state #{inspect(state)} transitioning to #{
             inspect(unquote(target))
           }"
@@ -26,7 +26,7 @@ defmodule StatesLanguage.AST.Transition do
 
       @impl true
       def handle_event(:internal, unquote(event) = event, unquote(source) = state, data) do
-        debug(
+        Logger.debug(
           "got internal transition event #{inspect(event)} in state #{inspect(state)} transitioning to #{
             inspect(unquote(target))
           }"

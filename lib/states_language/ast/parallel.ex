@@ -35,7 +35,7 @@ defmodule StatesLanguage.AST.Parallel do
               pid
             end)
 
-          debug("Starting parallel tasks: #{inspect(tasks)}")
+          Logger.debug("Starting parallel tasks: #{inspect(tasks)}")
           {:keep_state, %StatesLanguage{sl | _tasks: tasks}}
         end
       end

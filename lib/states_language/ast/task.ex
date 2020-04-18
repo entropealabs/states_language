@@ -33,7 +33,7 @@ defmodule StatesLanguage.AST.Task do
 
         case AST.do_stop?(unquote(is_end)) do
           true ->
-            {:stop, :end, %StatesLanguage{sl | data: data}}
+            {:stop, :normal, %StatesLanguage{sl | data: data}}
 
           false ->
             {:keep_state, %StatesLanguage{sl | data: data}, actions}

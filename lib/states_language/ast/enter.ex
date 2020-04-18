@@ -13,7 +13,7 @@ defmodule StatesLanguage.AST.Enter do
             unquote(target) = target,
             data
           ) do
-        debug("left #{inspect(source)} --> #{inspect(target)}: #{inspect(data)}")
+        Logger.debug("left #{inspect(source)} --> #{inspect(target)}: #{inspect(data)}")
 
         {:ok, data, actions} = handle_enter(source, target, data)
 

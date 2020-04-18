@@ -39,7 +39,7 @@ defmodule StatesLanguage.AST.Map do
               pid
             end)
 
-          debug("Starting Map tasks: #{inspect(tasks)}")
+          Logger.debug("Starting Map tasks: #{inspect(tasks)}")
           {:keep_state, %StatesLanguage{sl | _tasks: tasks}}
         end
       end
