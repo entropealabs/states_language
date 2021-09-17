@@ -24,7 +24,7 @@ defmodule StatesLanguageD3SerializerTest do
 
         assert %{name: ^start} = List.first(graph.nodes)
 
-        assert %{nodes: nodes, edges: edges} = graph
+        assert %{nodes: _nodes, edges: _edges} = graph
 
         graph
         |> Map.get(:nodes)

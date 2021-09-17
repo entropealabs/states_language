@@ -39,15 +39,14 @@ defmodule StatesLanguage.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 1.1", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 0.5.1", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:elixpath, "~> 0.1.0"},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.12.0", only: [:dev, :test], runtime: false},
-      {:jason, "~> 1.1"},
-      {:json_xema, "~> 0.4.0"},
-      {:telemetry, "~> 0.4.0"},
-      {:xema, "~> 0.11.0"}
+      {:excoveralls, "~> 0.14.0", only: [:dev, :test], runtime: false},
+      {:jason, "~> 1.2"},
+      {:json_xema, "~> 0.6.0"},
+      {:telemetry, "~> 1.0"}
     ]
   end
 

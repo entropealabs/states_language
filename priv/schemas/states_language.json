@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://cityba.se/schemas/states_language.json",
+  "$id": "https://entropealabs.com/schemas/states_language.json#",
   "title": "States Language",
   "description": "States Language JSON files to be compiled to Erlang gen_statem processes",
   "type": "object",

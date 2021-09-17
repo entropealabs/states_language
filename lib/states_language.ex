@@ -255,7 +255,11 @@ defmodule StatesLanguage do
     data
     |> File.read!()
     |> Jason.decode!()
-    |> do_start(data)
+    |> validate()
+    |> case do
+      {:ok, data} -> do_start(data)
+      {:error, _} = error -> throw(error)
+    end
   end
 
   @spec do_start(map()) :: [any()]

@@ -28,7 +28,7 @@ defmodule StatesLanguageErrorTest do
   test "client catches and handles error" do
     assert_receive {"DoStart", %{}, "Start", %{}}, 1000
 
-    assert_receive {"DoHandleError", %{"isState" => true, "test" => "ok"}, "HandleError", data},
+    assert_receive {"DoHandleError", %{"isState" => true, "test" => "ok"}, "HandleError", _data},
                    1000
 
     assert_receive :finished, 1000

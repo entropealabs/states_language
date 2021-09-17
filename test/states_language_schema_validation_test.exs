@@ -7,7 +7,7 @@ defmodule StatesLanguageSchemaValidationTest do
     |> File.ls!()
     |> Enum.each(fn file ->
       if String.ends_with?(file, ".json") do
-        assert {:ok, %{} = data} =
+        assert {:ok, %{} = _data} =
                  "test/support/"
                  |> Path.join(file)
                  |> File.read!()
