@@ -76,7 +76,7 @@ defmodule StatesLanguage.AST do
     ]
   end
 
-  @spec resource(Resource.t()) :: Macro.expr()
+  @spec resource(Resource.t()) :: Macro.input()
   def resource(%Resource{node: %Node{type: "Wait"}} = state_data) do
     Wait.create(state_data)
   end
@@ -112,9 +112,7 @@ defmodule StatesLanguage.AST do
 
         {%Edge{source: ^s, target: ^t} = e2, _ti} ->
           Logger.warn(
-            "Duplicate Edge found in graph \"#{comment}\" #{inspect(e1, pretty: true)} and #{
-              inspect(e2, pretty: true)
-            }"
+            "Duplicate Edge found in graph \"#{comment}\" #{inspect(e1, pretty: true)} and #{inspect(e2, pretty: true)}"
           )
 
           true

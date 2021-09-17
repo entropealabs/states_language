@@ -153,7 +153,7 @@ defmodule StatesLanguage do
     @type t :: %__MODULE__{
             source: String.t(),
             target: String.t(),
-            event: Macro.expr()
+            event: Macro.input()
           }
   end
 
@@ -164,7 +164,7 @@ defmodule StatesLanguage do
     defstruct [:string_equals, :next]
 
     @type t :: %__MODULE__{
-            string_equals: Macro.expr(),
+            string_equals: Macro.input(),
             next: String.t()
           }
   end
@@ -176,7 +176,7 @@ defmodule StatesLanguage do
     defstruct [:error_equals, :next]
 
     @type t :: %__MODULE__{
-            error_equals: [Macro.expr()],
+            error_equals: [Macro.input()],
             next: String.t()
           }
   end
