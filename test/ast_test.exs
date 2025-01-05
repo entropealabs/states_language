@@ -70,6 +70,7 @@ defmodule ASTTest do
       |> format_ast()
 
     assert String.contains?(f, [
+             "handle_event(\n          :internal,\n          :handle_resource,\n          \"TestState\" = state,\n          %StatesLanguage{data: data} = sl\n        )",
              "handle_event(:internal, :handle_resource, \"TestState\" = state, %StatesLanguage{data: data} = sl)",
              "(handle_event(:info, {:task_processed, result, pid}, \"TestState\", %StatesLanguage{_tasks: tasks} = sl)",
              "handle_event(:internal, :await_parallel_tasks, \"TestState\" = state, %StatesLanguage{_tasks: tasks, data: data} = sl)",
@@ -95,6 +96,7 @@ defmodule ASTTest do
       |> format_ast()
 
     assert String.contains?(f, [
+             "handle_event(\n          :internal,\n          :handle_resource,\n          \"TestState\" = state,\n          %StatesLanguage{data: data} = sl\n        )",
              "handle_event(:internal, :handle_resource, \"TestState\" = state, %StatesLanguage{data: data} = sl)",
              "handle_event(:info, {:task_processed, result, pid}, \"TestState\", %StatesLanguage{_tasks: tasks} = sl)",
              "handle_event(:internal, :await_parallel_tasks, \"TestState\" = state, %StatesLanguage{_tasks: tasks, data: data} = sl)",

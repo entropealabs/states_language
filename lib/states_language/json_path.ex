@@ -83,7 +83,7 @@ defmodule StatesLanguage.JSONPath do
 
   defp parse_parameters({k, <<"$", _path::binary>> = v}, input, acc) do
     if String.ends_with?(k, ".$") do
-      key = String.slice(k, 0..-3//-1)
+      key = String.slice(k, 0..-3//1)
       val = run_json_path(v, input)
       Map.put(acc, key, val)
     else
