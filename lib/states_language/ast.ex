@@ -111,7 +111,7 @@ defmodule StatesLanguage.AST do
           false
 
         {%Edge{source: ^s, target: ^t} = e2, _ti} ->
-          Logger.warn(
+          Logger.warning(
             "Duplicate Edge found in graph \"#{comment}\" #{inspect(e1, pretty: true)} and #{inspect(e2, pretty: true)}"
           )
 
