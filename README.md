@@ -15,7 +15,7 @@ Add `StatesLanguage` as a dependency to your mix.exs file.
 
 ```elixir
 defp deps do
-  [{:states_language, "~> 0.2.3"}]
+  [{:states_language, "~> 0.4.0"}]
 end
 ```
 
