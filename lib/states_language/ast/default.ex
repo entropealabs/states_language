@@ -54,13 +54,13 @@ defmodule StatesLanguage.AST.Default do
 
       @impl true
       def handle_event(:internal, na_event, na_state, %StatesLanguage{} = data) do
-        Logger.warn("Unknown Event #{inspect(na_event)} while in state #{inspect(na_state)}")
+        Logger.warning("Unknown Event #{inspect(na_event)} while in state #{inspect(na_state)}")
         :keep_state_and_data
       end
 
       @impl true
       def handle_event(:enter, source, target, %StatesLanguage{} = data) do
-        Logger.warn("Unknown enter event from #{inspect(source)} to #{inspect(target)}")
+        Logger.warning("Unknown enter event from #{inspect(source)} to #{inspect(target)}")
         :keep_state_and_data
       end
 
@@ -102,9 +102,7 @@ defmodule StatesLanguage.AST.Default do
         {:ok, data, actions} = handle_generic_timeout(event, state, data)
 
         Logger.debug(
-          "Handled generic timeout event: #{inspect(event)} in state #{state} with data #{
-            inspect(data)
-          }"
+          "Handled generic timeout event: #{inspect(event)} in state #{state} with data #{inspect(data)}"
         )
 
         {:keep_state, data, actions}
@@ -115,9 +113,7 @@ defmodule StatesLanguage.AST.Default do
         {:ok, data, actions} = handle_state_timeout(event, state, data)
 
         Logger.debug(
-          "Handled state timeout event: #{inspect(event)} in state #{state} with data #{
-            inspect(data)
-          }"
+          "Handled state timeout event: #{inspect(event)} in state #{state} with data #{inspect(data)}"
         )
 
         {:keep_state, data, actions}
@@ -128,9 +124,7 @@ defmodule StatesLanguage.AST.Default do
         {:ok, data, actions} = handle_event_timeout(event, state, data)
 
         Logger.debug(
-          "Handled event timeout event: #{inspect(event)} in state #{state} with data #{
-            inspect(data)
-          }"
+          "Handled event timeout event: #{inspect(event)} in state #{state} with data #{inspect(data)}"
         )
 
         {:keep_state, data, actions}

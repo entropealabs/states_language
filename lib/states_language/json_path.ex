@@ -22,7 +22,7 @@ defmodule StatesLanguage.JSONPath do
 
   def run_json_path("$", data), do: data
 
-  def run_json_path(<<"$", _::binary()>> = path, %{__struct__: _} = data) do
+  def run_json_path(<<"$", _::binary>> = path, %{__struct__: _} = data) do
     run_json_path(path, Map.from_struct(data))
   end
 
@@ -34,7 +34,7 @@ defmodule StatesLanguage.JSONPath do
 
   def put_path(_input, "$", result), do: result
 
-  def put_path(%{__struct__: _} = input, <<"$", _::binary()>> = path, result) do
+  def put_path(%{__struct__: _} = input, <<"$", _::binary>> = path, result) do
     put_path(Map.from_struct(input), path, result)
   end
 
@@ -83,7 +83,7 @@ defmodule StatesLanguage.JSONPath do
 
   defp parse_parameters({k, <<"$", _path::binary>> = v}, input, acc) do
     if String.ends_with?(k, ".$") do
-      key = String.slice(k, 0..-3)
+      key = String.slice(k, 0..-3//1)
       val = run_json_path(v, input)
       Map.put(acc, key, val)
     else

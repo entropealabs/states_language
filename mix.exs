@@ -4,7 +4,7 @@ defmodule StatesLanguage.Mixfile do
   def project do
     [
       app: :states_language,
-      version: "0.3.0",
+      version: "0.4.0",
       elixir: "~> 1.5",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
@@ -39,14 +39,14 @@ defmodule StatesLanguage.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:elixpath, "~> 0.1.0"},
       {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:excoveralls, "~> 0.14.0", only: [:dev, :test], runtime: false},
-      {:jason, "~> 1.2"},
-      {:json_xema, "~> 0.6.0"},
-      {:telemetry, "~> 1.0"}
+      {:excoveralls, "~> 0.18.3", only: [:dev, :test], runtime: false},
+      {:jason, "~> 1.4"},
+      {:json_xema, "~> 0.6.4"},
+      {:telemetry, "~> 1.3"}
     ]
   end
 
